@@ -20,9 +20,16 @@ builder.Services.AddAuthentication(options =>
         options.ClientSecret = "secret";
         options.ResponseType = "code";
 
+        // since this is true, ASP.NET Core auto stores id, access and refresh tokens in properties of authentication cookie
+        options.SaveTokens = true; // to persist tokens in cookie
+        
         options.Scope.Clear();
         options.Scope.Add("openid");
         options.Scope.Add("profile");
+        
+        // to get access to delivery and a refresh token
+        options.Scope.Add("delivery");
+        options.Scope.Add("offline_access");
         
         // additional claims for verification purposes
         options.Scope.Add("verification");
@@ -31,8 +38,6 @@ builder.Services.AddAuthentication(options =>
         options.GetClaimsFromUserInfoEndpoint = true; // ensures web client retrieve all claims from userinfo endpoint
 
         options.MapInboundClaims = false; // Don't rename claim types
-
-        options.SaveTokens = true; // to persist tokens in cookie
     });
 
 var app = builder.Build();

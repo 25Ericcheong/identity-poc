@@ -37,10 +37,7 @@ public static class Config
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
 
                     // secret for authentication
-                    ClientSecrets =
-                    {
-                        new Secret("secret".Sha256())
-                    },
+                    ClientSecrets = { new Secret("secret".Sha256()) },
 
                     // scopes that client has access to
                     AllowedScopes = { "delivery" }
@@ -48,10 +45,7 @@ public static class Config
                 new Client // for interactive web app
                 {
                     ClientId = "web",
-                    ClientSecrets =
-                    {
-                        new Secret("secret".Sha256())
-                    },
+                    ClientSecrets = { new Secret("secret".Sha256()) },
 
                     AllowedGrantTypes = GrantTypes.Code,
 
@@ -61,11 +55,14 @@ public static class Config
                     // where to redirect to after logout
                     PostLogoutRedirectUris = { "https://localhost:5002/signout-callback-oidc" },
                     
+                    AllowOfflineAccess = true,
+                    
                     AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        "verification"
+                        "verification", // previously added another scope to emit additional claims
+                        "delivery",
                     }
                 }
             };

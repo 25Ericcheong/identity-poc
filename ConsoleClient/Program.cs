@@ -39,7 +39,7 @@ var apiClient = new HttpClient();
 // note: Will get unauthorized response if not set
 apiClient.SetBearerToken(tokenResponse.AccessToken!);
 
-var response = await apiClient.GetAsync("http://localhost:6001/identity");
+var response = await apiClient.GetAsync("https://localhost:6001/identity");
 if (!response.IsSuccessStatusCode)
 {
     Console.WriteLine(response.StatusCode);
