@@ -23,6 +23,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{F6E5
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebClient", "Clients\WebClient\WebClient.csproj", "{A4BF736B-CA34-40E2-9A46-B035B6582755}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaScriptClient", "Clients\JavaScriptClient\JavaScriptClient.csproj", "{3E9F4D6B-7EBB-49CE-AD0E-0A197AC73F73}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,7 @@ Global
 		{BD4E9204-86A8-4A78-90C4-69C3BE9C6064} = {B7B3D6DD-FBD6-4C3A-BAF5-FF722750F8AA}
 		{DD68EDC4-3D20-4123-885D-37A438E39F6F} = {34FF1DDF-9E78-4A15-95BD-E6E34E7B98B5}
 		{A4BF736B-CA34-40E2-9A46-B035B6582755} = {F6E58BB2-081B-4982-964E-0AAFB751B4DB}
+		{3E9F4D6B-7EBB-49CE-AD0E-0A197AC73F73} = {F6E58BB2-081B-4982-964E-0AAFB751B4DB}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{669048BC-FD2F-4A7F-8223-7058716EA7F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -61,5 +64,9 @@ Global
 		{A4BF736B-CA34-40E2-9A46-B035B6582755}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4BF736B-CA34-40E2-9A46-B035B6582755}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4BF736B-CA34-40E2-9A46-B035B6582755}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E9F4D6B-7EBB-49CE-AD0E-0A197AC73F73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E9F4D6B-7EBB-49CE-AD0E-0A197AC73F73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E9F4D6B-7EBB-49CE-AD0E-0A197AC73F73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E9F4D6B-7EBB-49CE-AD0E-0A197AC73F73}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

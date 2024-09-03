@@ -64,6 +64,23 @@ public static class Config
                         "verification", // previously added another scope to emit additional claims
                         "delivery",
                     }
+                },
+                new Client // for interactive web app
+                {
+                    ClientId = "bff",
+                    ClientSecrets = { new Secret("secret".Sha256()) },
+                    
+                    AllowedGrantTypes = GrantTypes.Code,
+                    
+                    RedirectUris = { "https://localhost:5003/signin-oidc" },
+                    PostLogoutRedirectUris = { "https://localhost:5003/signout-callback-oidc" },
+                    
+                    AllowedScopes = new List<string>
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "delivery"
+                    }
                 }
             };
 }
