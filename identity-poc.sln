@@ -14,9 +14,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LedgerApi", "Api\LedgerApi\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeliveryApi", "Api\DeliveryApi\DeliveryApi.csproj", "{BD4E9204-86A8-4A78-90C4-69C3BE9C6064}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DuendeQuickstart", "DuendeQuickstart", "{B0476F49-BBC3-4385-8985-32CF57FACF6D}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Consoles", "Consoles", "{34FF1DDF-9E78-4A15-95BD-E6E34E7B98B5}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{34FF1DDF-9E78-4A15-95BD-E6E34E7B98B5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleClient", "ConsoleClient\ConsoleClient.csproj", "{DD68EDC4-3D20-4123-885D-37A438E39F6F}"
 EndProject

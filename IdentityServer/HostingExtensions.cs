@@ -7,7 +7,7 @@ internal static class HostingExtensions
     public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
     {
         // uncomment if you want to add a UI
-        //builder.Services.AddRazorPages();
+        builder.Services.AddRazorPages();
 
         builder.Services.AddIdentityServer(options =>
             {
@@ -16,7 +16,8 @@ internal static class HostingExtensions
             })
             .AddInMemoryIdentityResources(Config.IdentityResources)
             .AddInMemoryApiScopes(Config.ApiScopes)
-            .AddInMemoryClients(Config.Clients);
+            .AddInMemoryClients(Config.Clients)
+            .AddTestUsers(TestUsers.Users); // contains users and their claims
 
         return builder.Build();
     }
@@ -37,8 +38,8 @@ internal static class HostingExtensions
         app.UseIdentityServer();
 
         // uncomment if you want to add a UI
-        //app.UseAuthorization();
-        //app.MapRazorPages().RequireAuthorization();
+        app.UseAuthorization();
+        app.MapRazorPages().RequireAuthorization();
 
         return app;
     }

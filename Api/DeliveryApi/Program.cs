@@ -21,7 +21,7 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("ApiScope", policy =>
     {
         policy.RequireAuthenticatedUser();
-        policy.RequireClaim("scope", "deliverys");
+        policy.RequireClaim("scope", "delivery");
     });
 });
 
