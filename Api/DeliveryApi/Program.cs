@@ -14,7 +14,16 @@ builder.Services.AddAuthentication()
         options.Authority = "https://localhost:5001";
         options.TokenValidationParameters.ValidateAudience = false;
     });
-builder.Services.AddAuthorization();
+
+// Ensure API checks for presence of listed scope in access token. 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("ApiScope", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireClaim("scope", "deliverys");
+    });
+});
 
 builder.Services.AddSwaggerGen();
 
@@ -30,6 +39,6 @@ var app = builder.Build();
 app.UseHttpsRedirection();
 
 app.MapGet("identity", (ClaimsPrincipal user) => user.Claims.Select(c => new { c.Type, c.Value }))
-    .RequireAuthorization();
+    .RequireAuthorization("ApiScope");
 
 app.Run();
