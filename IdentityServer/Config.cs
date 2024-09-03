@@ -1,5 +1,6 @@
 ﻿using Duende.IdentityServer;
 using Duende.IdentityServer.Models;
+using IdentityModel;
 
 namespace IdentityServer;
 
@@ -9,7 +10,16 @@ public static class Config
         new IdentityResource[]
         { 
             new IdentityResources.OpenId(), // subject id
-            new IdentityResources.Profile(), // first name, last name, etc.
+            new IdentityResources.Profile(), // first name, last name, etc. note: this does not include email addresses
+            new IdentityResource()
+            {
+                Name = "verification", // the name is the scope that clients can request to get associated UserClaims
+                UserClaims = new List<string> 
+                { 
+                    JwtClaimTypes.Email,
+                    JwtClaimTypes.EmailVerified
+                }
+            }
         };
 
     public static IEnumerable<ApiScope> ApiScopes =>
@@ -38,6 +48,10 @@ public static class Config
                 new Client // for interactive web app
                 {
                     ClientId = "web",
+                    ClientSecrets =
+                    {
+                        new Secret("secret".Sha256())
+                    },
 
                     AllowedGrantTypes = GrantTypes.Code,
 
@@ -50,7 +64,8 @@ public static class Config
                     AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "verification"
                     }
                 }
             };
