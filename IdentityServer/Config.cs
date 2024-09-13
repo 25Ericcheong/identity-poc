@@ -42,27 +42,23 @@ public static class Config
                     // scopes that client has access to
                     AllowedScopes = { "delivery" }
                 },
-                new Client // for interactive web app
+                new Client
                 {
                     ClientId = "web",
                     ClientSecrets = { new Secret("secret".Sha256()) },
 
                     AllowedGrantTypes = GrantTypes.Code,
-
-                    // where to redirect after login
+            
+                    // where to redirect to after login
                     RedirectUris = { "https://localhost:5002/signin-oidc" },
-                    
+
                     // where to redirect to after logout
                     PostLogoutRedirectUris = { "https://localhost:5002/signout-callback-oidc" },
-                    
-                    AllowOfflineAccess = true,
-                    
+
                     AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile,
-                        "verification", // previously added another scope to emit additional claims
-                        "delivery",
+                        IdentityServerConstants.StandardScopes.Profile
                     }
                 },
                 new Client // for interactive web app

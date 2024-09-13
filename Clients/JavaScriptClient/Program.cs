@@ -22,7 +22,7 @@ builder.Services
     .AddCookie("Cookies")
     .AddOpenIdConnect("oidc", options =>
     {
-        options.Authority = "https://localhost:5001";
+        options.Authority = "https://localhost:5001"; // talks to identity server
         options.ClientId = "bff";
         options.ClientSecret = "secret";
         options.ResponseType = "code";
