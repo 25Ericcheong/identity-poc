@@ -13,15 +13,15 @@ namespace Mvc.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult ImportData()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Data imported successfully";
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult Vue()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "To Vue page";
             return View();
         }
     }
