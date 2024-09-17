@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebClient", "Clients\WebCli
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaScriptClient", "Clients\JavaScriptClient\JavaScriptClient.csproj", "{3E9F4D6B-7EBB-49CE-AD0E-0A197AC73F73}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServerStart", "IdentityServerStart\IdentityServerStart.csproj", "{09BE2F85-5482-4610-AD1B-A108B252B917}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -68,5 +70,9 @@ Global
 		{3E9F4D6B-7EBB-49CE-AD0E-0A197AC73F73}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E9F4D6B-7EBB-49CE-AD0E-0A197AC73F73}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E9F4D6B-7EBB-49CE-AD0E-0A197AC73F73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09BE2F85-5482-4610-AD1B-A108B252B917}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09BE2F85-5482-4610-AD1B-A108B252B917}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09BE2F85-5482-4610-AD1B-A108B252B917}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09BE2F85-5482-4610-AD1B-A108B252B917}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
