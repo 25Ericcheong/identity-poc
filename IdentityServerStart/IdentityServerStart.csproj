@@ -11,12 +11,4 @@
 
 		<PackageReference Include="Serilog.AspNetCore" Version="8.0.0" />
 	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Pages\Account\" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <AdditionalFiles Include="Pages\Account\Login\Index.cshtml" />
-	</ItemGroup>
 </Project>
