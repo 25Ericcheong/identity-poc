@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace Mvc.Controllers
 {
@@ -16,6 +12,12 @@ namespace Mvc.Controllers
         public ActionResult ImportData()
         {
             ViewBag.Message = "Data imported successfully";
+            return View();
+        }
+        
+        public ActionResult ImportDataFramework()
+        {
+            ViewBag.Message = "Data imported successfully via .NET Franework";
             return View();
         }
 

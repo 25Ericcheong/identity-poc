@@ -12,6 +12,8 @@ internal static class HostingExtensions
         
         builder.Services.AddIdentityServer(options =>
             {
+                options.UserInteraction.LoginUrl = "/Account/Login";
+                
                 // https://docs.duendesoftware.com/identityserver/v6/fundamentals/resources/api_scopes#authorization-based-on-scopes
                 options.EmitStaticAudienceClaim = true;
             })

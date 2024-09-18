@@ -170,6 +170,7 @@ public class Index : PageModel
         };
             
         var context = await _interaction.GetAuthorizationContextAsync(returnUrl);
+        
         if (context?.IdP != null && await _schemeProvider.GetSchemeAsync(context.IdP) != null)
         {
             var local = context.IdP == Duende.IdentityServer.IdentityServerConstants.LocalIdentityProvider;
