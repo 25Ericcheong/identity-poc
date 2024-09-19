@@ -11,6 +11,8 @@ public class AccountController : Controller
     [HttpGet]
     public IActionResult Login(string returnUrl)
     {
+        ViewData["returnUrl"] = returnUrl;
+        
         return View();
     }
     

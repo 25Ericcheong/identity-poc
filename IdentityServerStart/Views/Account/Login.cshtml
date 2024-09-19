@@ -2,6 +2,7 @@
 
 @{
     Layout = null;
+    string returnUrl = ViewBag.ReturnUrl;
 }
 
 <!DOCTYPE html>
@@ -16,7 +17,7 @@
     <div>
         <h2>Local Login</h2>
         <form method="post" asp-controller="Account" asp-action="Login">
-            <input type="hidden" asp-for="ReturnUrl" />
+            <input type="hidden" value="@returnUrl" asp-for="ReturnUrl" />
             
             <div>
                 <label asp-for="Email"></label>
