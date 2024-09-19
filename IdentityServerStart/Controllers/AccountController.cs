@@ -1,3 +1,4 @@
+using IdentityServerStart.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,10 +8,16 @@ public class AccountController : Controller
 {
     // GET
     [AllowAnonymous]
-    public IActionResult Login()
+    [HttpGet]
+    public IActionResult Login(string returnUrl)
     {
         return View();
     }
     
-    
+    [AllowAnonymous]
+    [HttpPost]
+    public IActionResult Login(LoginRequest request)
+    {
+        return View();
+    }
 }
