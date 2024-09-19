@@ -1,4 +1,4 @@
-@model IdentityServerStart.Model.LoginRequest
+@model IdentityServerStart.RequestResponse.LoginRequest
 
 @{
     Layout = null;
@@ -6,7 +6,7 @@
 
 <!DOCTYPE html>
 
-<html lang="">
+<html lang="en">
 <head>
     <title>Login</title>
 </head>
@@ -16,7 +16,7 @@
     <div>
         <h2>Local Login</h2>
         <form method="post" asp-controller="Account" asp-action="Login">
-            @* <input type="hidden" value="@ViewBag.ReturnUrl" asp-for="ReturnUrl" /> *@
+            <input type="hidden" value="@ViewBag.ReturnUrl" asp-for="ReturnUrl" />
             
             <div>
                 <label asp-for="Email"></label>

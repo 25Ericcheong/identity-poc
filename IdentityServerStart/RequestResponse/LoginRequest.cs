@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace IdentityServerStart.Model;
+namespace IdentityServerStart.RequestResponse;
 
 public class LoginRequest
 {

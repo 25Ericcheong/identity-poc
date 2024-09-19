@@ -1,3 +1,4 @@
+@model IdentityServerStart.RequestResponse.LoggedOutRequest
 
 @{
     Layout = null;
@@ -5,13 +6,19 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
 <head>
     <title>Logout</title>
 </head>
 <body>
 <div>
     <h1>Logout Page</h1>
+    <p>Would you like to logout of IdentityServer?</p>
+
+    <form method="post" asp-controller="Account" asp-action="LoggedOut">
+        <input type="hidden" value="@ViewBag.LogoutId" asp-for="LogoutId" />
+        <button>Yes</button>
+    </form>
 </div>
 </body>
 </html>
