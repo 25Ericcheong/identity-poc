@@ -6,6 +6,7 @@ using IdentityServerStart.RequestResponse;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using LoginRequest = IdentityServerStart.RequestResponse.LoginRequest;
 
 namespace IdentityServerStart.Controllers;
 
@@ -13,17 +14,17 @@ namespace IdentityServerStart.Controllers;
 public class AccountController : Controller
 {
     /// <summary>
-    /// This is there users are redirected to for login and authentication
+    /// This is there users are redirected to for login and authentication (from external applications) 
     /// </summary>
-    /// <param name="returnUrl">Url where users will be redirected to after a successful login</param>
+    /// <param name="request">Request from user's application to login that has returnUrl query parameter</param>
     /// <returns></returns>
     [HttpGet]
     //TODO: Can/should returnUrl and logoutId be nullable? Should be no. Would need to redirect users to somewhere after login.
-    public IActionResult Login(string? returnUrl)
+    public IActionResult Login(LoginExternalRequest request)
     {
-        if (!string.IsNullOrEmpty(returnUrl))
+        if (!string.IsNullOrEmpty(request.ReturnUrl))
         {
-            ViewBag.ReturnUrl = returnUrl;
+            ViewBag.ReturnUrl = request.ReturnUrl;
         };
         
         return View();
@@ -32,7 +33,7 @@ public class AccountController : Controller
     /// <summary>
     /// This is where user credentials are validated and if it is wrong the same view will be rendered with the relevant error
     /// </summary>
-    /// <param name="request"></param>
+    /// <param name="request">Request</param>
     /// <returns></returns>
     /// <exception cref="Exception">Occurs when the return url provided is not in an expected format</exception>
     [HttpPost]
@@ -99,18 +100,18 @@ public class AccountController : Controller
         }
         return View();
     }
-    
+
     /// <summary>
     /// Where users are redirected to for logout. The response of this action will provide user a log out prompt to confirm their actions. Can be configured to skip step altogether
     /// </summary>
-    /// <param name="logoutId">Id used to acquire related logout context</param>
+    /// <param name="request">Request containing logout id to acquire logout context</param>
     /// <returns></returns>
     [HttpGet]
-    public async Task<IActionResult> Logout(string logoutId)
+    public async Task<IActionResult> Logout(LogoutExternalRequest request)
     {
-        if (!string.IsNullOrEmpty(logoutId))
+        if (!string.IsNullOrEmpty(request.LogoutId))
         {
-            ViewBag.LogoutId = logoutId;
+            ViewBag.LogoutId = request.LogoutId;
         };
         
         var showLogoutPrompt = true;
@@ -120,7 +121,7 @@ public class AccountController : Controller
         }
         else
         {
-            var context = await _interactionService.GetLogoutContextAsync(logoutId);
+            var context = await _interactionService.GetLogoutContextAsync(request.LogoutId);
             if (context.ShowSignoutPrompt == false)
             {
                 showLogoutPrompt = false;
@@ -131,7 +132,7 @@ public class AccountController : Controller
         {
             return await Logout(new LogoutRequest
             {
-                LogoutId = logoutId,
+                LogoutId = request.LogoutId,
             });
         }
         
