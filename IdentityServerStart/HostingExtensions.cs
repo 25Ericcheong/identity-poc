@@ -14,6 +14,7 @@ internal static class HostingExtensions
             {
                 options.UserInteraction.LoginUrl = "/Account/Login";
                 options.UserInteraction.LogoutUrl = "/Account/Logout";
+                options.UserInteraction.ErrorUrl = "/Home/Error";
 
                 // https://docs.duendesoftware.com/identityserver/v6/fundamentals/resources/api_scopes#authorization-based-on-scopes
                 options.EmitStaticAudienceClaim = true;

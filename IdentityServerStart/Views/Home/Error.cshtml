@@ -1,0 +1,26 @@
+
+@{
+    Layout = null;
+    var errorResponse = ViewBag.ErrorResponse;
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>Error has occured</title>
+</head>
+<body>
+<div>
+    <h1>Something unexpected has happened</h1>
+    
+    @if (errorResponse != null)
+    {
+        <p>Error Code: @errorResponse.ErrorCode</p>
+        <p>Error Description: @errorResponse.ErrorDescription</p>
+        <p>Error Id: @errorResponse.ErrorId</p>
+    }
+    
+</div>
+</body>
+</html>
