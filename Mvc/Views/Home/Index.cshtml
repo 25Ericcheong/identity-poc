@@ -4,4 +4,13 @@
 
 <div class="jumbotron">
     <h1>ASP.NET</h1>
+    @if (ViewBag.IsLoggedIn)
+    {
+        <p>You are logged in. Sign out if required</p>
+    <input type="button" value="Sign out" onclick="location.href='@Url.Action("Logout", "Home")'" />
+    }
+    else
+    {
+        <p>You are NOT logged in - please sign in</p>
+    }
 </div>

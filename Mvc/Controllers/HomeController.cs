@@ -6,8 +6,19 @@ namespace Mvc.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
+            var result = await HttpContext.GetOwinContext().Authentication.AuthenticateAsync("cookies");
+
+            // result can be null if authentication fail or use is not authenticated at all
+            if (result is null)
+            {
+                ViewBag.IsLoggedIn = false;
+            }
+            else
+            {
+                ViewBag.IsLoggedIn = result.Identity.IsAuthenticated;
+            }
             return View();
         }
 
@@ -35,6 +46,11 @@ namespace Mvc.Controllers
         {
             ViewBag.Message = "You are trying to access a forbidden page";
             return View();
+        }
+
+        public void Logout()
+        {
+            HttpContext.GetOwinContext().Authentication.SignOut("oidc", "cookies");
         }
     }
 }
