@@ -1,7 +1,35 @@
-﻿@{
-    ViewBag.Title = ".NET 4.8 Framework";
+﻿@model Microsoft.Owin.Security.AuthenticateResult 
+@{
+    ViewBag.Title = "Signed In Successfully! .NET 4.8 Framework";
 }
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
 <p>Imports data via .NET 4.8 API</p>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Claims</h2>
+        <h3>Acquired from current HttpContext from Identity Server</h3>
+        <dl>
+            @foreach (var claim in Model.Identity.Claims)
+            {
+                <dt>@claim.Type</dt>
+                <dd>@claim.Value</dd>
+            }
+        </dl>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Authentication Properties</h2>
+        <dl>
+            @foreach (var item in Model.Properties.Dictionary)
+            {
+                <dt>@item.Key</dt>
+                <dd>@item.Value</dd>
+            }
+        </dl>
+    </div>
+</div>

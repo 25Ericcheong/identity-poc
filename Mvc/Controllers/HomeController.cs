@@ -22,7 +22,7 @@ namespace Mvc.Controllers
         {
             var result = await HttpContext.GetOwinContext().Authentication.AuthenticateAsync("cookies");
             ViewBag.Message = "Data imported successfully via .NET Framework";
-            return View();
+            return View(result);
         }
 
         public ActionResult Vue()
