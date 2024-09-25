@@ -40,8 +40,8 @@ namespace Mvc
                 ClientId = "web",
                 ClientSecret = "secret",
 
-                RedirectUri = "https://localhost:5000/",
-                PostLogoutRedirectUri = "https://localhost:5000/",
+                RedirectUri = "https://localhost:44344/",
+                PostLogoutRedirectUri = "https://localhost:44344/",
 
                 ResponseType = "code",
                 Scope = "openid profile",

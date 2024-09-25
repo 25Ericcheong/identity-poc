@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System.Threading.Tasks;
+using System.Web;
+using System.Web.Mvc;
 
 namespace Mvc.Controllers
 {
@@ -15,15 +17,23 @@ namespace Mvc.Controllers
             return View();
         }
         
-        public ActionResult ImportDataFramework()
+        [Authorize]
+        public async Task<ActionResult> ImportDataFramework()
         {
-            ViewBag.Message = "Data imported successfully via .NET Franework";
+            var result = await HttpContext.GetOwinContext().Authentication.AuthenticateAsync("cookies");
+            ViewBag.Message = "Data imported successfully via .NET Framework";
             return View();
         }
 
         public ActionResult Vue()
         {
-            ViewBag.Message = "To Vue page";
+            ViewBag.Message = "In Vue currently";
+            return View();
+        }
+
+        public ActionResult Forbidden()
+        {
+            ViewBag.Message = "You are trying to access a forbidden page";
             return View();
         }
     }
