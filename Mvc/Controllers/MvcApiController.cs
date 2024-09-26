@@ -2,7 +2,8 @@ using System.Web.Mvc;
 
 namespace Mvc.Controllers
 {
-    public class IdentityApiController : Controller
+    [Authorize]
+    public class ApiController : Controller
     {
         
     }
