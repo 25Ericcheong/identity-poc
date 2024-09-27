@@ -31,6 +31,7 @@ public static class Config
                 // where to redirect to after logout
                 PostLogoutRedirectUris = { Constants.Urls.Mvc },
 
+                AllowOfflineAccess = true,
                 AllowedScopes =
                 {
                     IdentityServerConstants.StandardScopes.OpenId,

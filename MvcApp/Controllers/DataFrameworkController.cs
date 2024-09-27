@@ -11,60 +11,52 @@ using Microsoft.Owin.Security;
 
 namespace MvcApp.Controllers
 {
-    //[Authorize]
-    [AllowAnonymous]
+    [Authorize]
     public class DataFrameworkController : Controller
     {
-        private static DiscoveryCache _discoveryCache = new DiscoveryCache(Urls.IdentityServer);
+        private static readonly DiscoveryCache DiscoveryCache = new DiscoveryCache(Urls.IdentityServer);
         
         public async Task<ActionResult> Index()
         {
+            var authResult = await HttpContext.GetOwinContext().Authentication.AuthenticateAsync("cookies");
+            var errorMessage = "No Access Token found. Please sign in again";
             
-            var http = new HttpClient();
-            var response = await http.GetStringAsync(Urls.ApiFramework + "financial");
-            var parsed = JsonDocument.Parse(response);
-            var payload = JsonSerializer.Serialize(parsed, new JsonSerializerOptions { WriteIndented = true });
-            return View("Index", model: payload);
+            var props = authResult.Properties.Dictionary;
+
+            try
+            {
+                if (props.TryGetValue("access_token", out var accessToken))
+                {
+                    if (TokenIsExpired(authResult.Properties))
+                    {
+                        var tokenResponse = await RefreshToken(authResult.Properties, authResult.Identity);
+                        accessToken = tokenResponse.AccessToken;
+                    }
+
+                    if (accessToken is null)
+                    {
+                        throw new Exception("Access token not found please sign in again.");
+                    }
+
+                    var http = new HttpClient();
+                    http.SetBearerToken(accessToken);
+                    var response = await http.GetStringAsync(Urls.ApiFramework + "/financial");
+                    var parsed = JsonDocument.Parse(response);
+
+                    var payload = JsonSerializer.Serialize(parsed, new JsonSerializerOptions { WriteIndented = true });
+                    return View("Index", model: payload);
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                errorMessage = "Fail to retrieve data from NET48 endpoint: " + ex.Message;
+            }
+            catch (Exception ex)
+            {
+                errorMessage = "Unexpected error occured: " + ex.Message;
+            }
             
-            // var authResult = await HttpContext.GetOwinContext().Authentication.AuthenticateAsync("cookies");
-            // var errorMessage = "No Access Token found. Please sign in again";
-            //
-            // var props = authResult.Properties.Dictionary;
-            //
-            // try
-            // {
-            //     if (props.TryGetValue("access_token", out var accessToken))
-            //     {
-            //         if (TokenIsExpired(authResult.Properties))
-            //         {
-            //             var tokenResponse = await RefreshToken(authResult.Properties, authResult.Identity);
-            //             accessToken = tokenResponse.AccessToken;
-            //         }
-            //
-            //         if (accessToken is null)
-            //         {
-            //             throw new Exception("Access token not found please sign in again.");
-            //         }
-            //
-            //         var http = new HttpClient();
-            //         http.SetBearerToken(accessToken);
-            //         var response = await http.GetStringAsync(Urls.ApiFramework + "financial");
-            //         var parsed = JsonDocument.Parse(response);
-            //
-            //         var payload = JsonSerializer.Serialize(parsed, new JsonSerializerOptions { WriteIndented = true });
-            //         return View("Index", model: payload);
-            //     }
-            // }
-            // catch (HttpRequestException ex)
-            // {
-            //     errorMessage = "Fail to retrieve data from NET48 endpoint: " + ex.Message;
-            // }
-            // catch (Exception ex)
-            // {
-            //     errorMessage = "Unexpected error occured: " + ex.Message;
-            // }
-            //
-            // return View("Error", model: errorMessage);
+            return View("Error", model: errorMessage);
         }
         
         private void SaveTokens(AuthenticationProperties properties, TokenResponse message)
@@ -107,7 +99,7 @@ namespace MvcApp.Controllers
         {
             if (props.Dictionary.TryGetValue("refresh_token", out var refreshToken))
             {
-                var disco = await _discoveryCache.GetAsync();
+                var disco = await DiscoveryCache.GetAsync();
                 var refreshRequest = new RefreshTokenRequest
                 {
                     Address = disco.TokenEndpoint,

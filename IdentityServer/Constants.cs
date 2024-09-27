@@ -6,6 +6,6 @@ public class Constants
     {
         public const string ThisIdentityServer = "https://localhost:5001";
 
-        public const string Mvc = "https://localhost:44330/";
+        public const string Mvc = "https://localhost:44330";
     }
 }

@@ -2,6 +2,7 @@
 
 namespace FrameworkApi.Controllers
 {
+    [Authorize]
     public class FinancialController : ApiController
     {
         [HttpGet]
