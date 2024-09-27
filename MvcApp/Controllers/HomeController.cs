@@ -22,5 +22,10 @@ namespace MvcApp.Controllers
             
             return View(response);
         }
+        
+        public void Logout()
+        {
+            HttpContext.GetOwinContext().Authentication.SignOut("oidc", "cookies");
+        }
     }
 }

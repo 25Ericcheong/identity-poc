@@ -11,6 +11,7 @@
     @if (Model.IsAuthenticated)
     {
         <h2>LOGGED IN</h2>
+        <p>You may @Html.ActionLink("log out", "Logout", "Home")</p>
     }
     else
     {
