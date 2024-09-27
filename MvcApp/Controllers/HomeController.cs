@@ -1,16 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using MvcApp.RequestResponse;
 
 namespace MvcApp.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View();
+            var result = await HttpContext.GetOwinContext().Authentication.AuthenticateAsync("cookies");
+            var response = new HomeIndexResponse
+            {
+                IsAuthenticated = false,
+            };
+
+            if (result != null)
+            {
+                response.IsAuthenticated = result.Identity.IsAuthenticated;
+            }
+            
+            return View(response);
         }
     }
 }

@@ -1,8 +1,20 @@
-﻿@{
+﻿@model MvcApp.RequestResponse.HomeIndexResponse
+
+@{
     ViewBag.Title = "Mvc Home Page";
 }
 
 <div class="jumbotron">
     <h1>ASP.NET</h1>
     <p class="lead">User Authentication Status</p>
+    
+    @if (Model.IsAuthenticated)
+    {
+        <h2>LOGGED IN</h2>
+    }
+    else
+    {
+        <h2>NOT AUTHENTICATED</h2>
+    }
+    <h2></h2>
 </div>

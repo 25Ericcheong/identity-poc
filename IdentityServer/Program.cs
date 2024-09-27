@@ -20,6 +20,8 @@ try
         .ConfigureServices()
         .ConfigurePipeline();
     
+    app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}");
+    
     app.Run();
 }
 catch (Exception ex)

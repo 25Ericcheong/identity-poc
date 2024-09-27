@@ -1,0 +1,43 @@
+@{
+Layout = null;
+var loggedOutResponse = ViewBag.LoggedOutResponse;
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>Logged out</title>
+</head>
+<body>
+<div>
+    <h1>Logged out</h1>
+    <p>You have successfully logged out</p>
+
+    @if (loggedOutResponse?.PostLogoutRedirectUri != null)
+    {
+    <div>
+        Click <a class="PostLogoutRedirectUri" href="@loggedOutResponse.PostLogoutRedirectUri">here</a> to return to the
+        <span>@loggedOutResponse.ClientName</span> application.
+    </div>
+    }
+
+    @if (loggedOutResponse?.SignOutIframeUrl != null)
+    {
+    <iframe width="0" height="0" src="@loggedOutResponse.SignOutIframeUrl"></iframe>
+    }
+</div>
+</body>
+</html>
+
+@if (loggedOutResponse != null && loggedOutResponse?.AutomaticRedirectAfterLogout)
+{
+<script>
+    window.addEventListener("load", function () {
+        const a = document.querySelector("a.PostLogoutRedirectUri");
+        if (a) {
+            window.location = a.href;
+        }
+    });
+</script>
+}
