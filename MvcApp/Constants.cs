@@ -7,5 +7,7 @@ namespace MvcApp
         public const string ThisMvc = "https://localhost:44330";
 
         public const string ApiFramework = "https://localhost:44329/api";
+
+        public const string ApiCore = "https://localhost:44329/api";
     }
 }

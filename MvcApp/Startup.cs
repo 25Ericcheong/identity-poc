@@ -17,7 +17,7 @@ namespace MvcApp
     {
         public void Configuration(IAppBuilder app)
         {
-            app.UseCookieAuthentication(new CookieAuthenticationOptions()
+            app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = "cookies",
                 ExpireTimeSpan = TimeSpan.FromMinutes(10),
