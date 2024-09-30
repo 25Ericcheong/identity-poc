@@ -1,4 +1,5 @@
 using System;
+using System.Drawing.Imaging;
 using System.IdentityModel.Tokens.Jwt;
 using System.Threading.Tasks;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
@@ -41,7 +42,7 @@ namespace MvcApp
                 PostLogoutRedirectUri = Urls.ThisMvc,
 
                 ResponseType = "code",
-                Scope = "openid profile",
+                Scope = $"openid profile {AllowedScopes.CoreApiScope} {AllowedScopes.FrameworkApiScope}",
                 
                 UseTokenLifetime = false,
                 SaveTokens = true,

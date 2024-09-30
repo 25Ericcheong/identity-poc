@@ -10,7 +10,6 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Jwt;
-using MvcApp;
 using Owin;
 
 [assembly: OwinStartup(typeof(Startup))]

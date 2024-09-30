@@ -8,4 +8,11 @@ public class Constants
 
         public const string Mvc = "https://localhost:44330";
     }
+
+    public static class AllowedScopes
+    {
+        public const string FrameworkApiScope = "FrameworkApiScope";
+        
+        public const string CoreApiScope = "CoreApiScope";
+    }
 }

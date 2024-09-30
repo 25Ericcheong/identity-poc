@@ -14,7 +14,10 @@ public static class Config
 
     public static IEnumerable<ApiScope> ApiScopes =>
         new ApiScope[]
-            { };
+        {
+            new ApiScope(name: Constants.AllowedScopes.CoreApiScope, displayName: "Core API Scope"),
+            new ApiScope(name: Constants.AllowedScopes.FrameworkApiScope, displayName: "Framework API Scope") 
+        };
 
     public static IEnumerable<Client> Clients =>
         new List<Client> 
@@ -35,7 +38,9 @@ public static class Config
                 AllowedScopes =
                 {
                     IdentityServerConstants.StandardScopes.OpenId,
-                    IdentityServerConstants.StandardScopes.Profile
+                    IdentityServerConstants.StandardScopes.Profile,
+                    Constants.AllowedScopes.CoreApiScope,
+                    Constants.AllowedScopes.FrameworkApiScope,
                 }
             } };
 }

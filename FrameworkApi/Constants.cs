@@ -1,4 +1,4 @@
-namespace MvcApp
+namespace FrameworkApi
 {
     public static class Urls
     {
@@ -7,5 +7,15 @@ namespace MvcApp
         public const string ThisMvc = "https://localhost:44330";
 
         public const string ApiFramework = "https://localhost:44329/api";
+    }
+    
+    public static class AllowedScopes
+    {
+        public const string FrameworkApiScope = "FrameworkApiScope";
+    }
+    
+    public static class ClaimTypes
+    {
+        public const string Scope = "scope";
     }
 }

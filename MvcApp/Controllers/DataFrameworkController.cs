@@ -14,7 +14,7 @@ namespace MvcApp.Controllers
     [Authorize]
     public class DataFrameworkController : Controller
     {
-        private static readonly DiscoveryCache DiscoveryCache = new DiscoveryCache(Urls.IdentityServer);
+        private static readonly DiscoveryCache DiscoveryCache = new(Urls.IdentityServer);
         
         public async Task<ActionResult> Index()
         {
