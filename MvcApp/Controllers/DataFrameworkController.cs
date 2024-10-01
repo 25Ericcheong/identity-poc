@@ -12,11 +12,11 @@ using Microsoft.Owin.Security;
 namespace MvcApp.Controllers
 {
     [Authorize]
-    public class DataFrameworkController : Controller
+    public class DataController : Controller
     {
         private static readonly DiscoveryCache DiscoveryCache = new(Urls.IdentityServer);
         
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> GetNet48Data()
         {
             var authResult = await HttpContext.GetOwinContext().Authentication.AuthenticateAsync("cookies");
             var errorMessage = "No Access Token found. Please sign in again";
@@ -44,12 +44,53 @@ namespace MvcApp.Controllers
                     var parsed = JsonDocument.Parse(response);
 
                     var payload = JsonSerializer.Serialize(parsed, new JsonSerializerOptions { WriteIndented = true });
-                    return View("Index", model: payload);
+                    return View("Net48", model: payload);
                 }
             }
             catch (HttpRequestException ex)
             {
                 errorMessage = "Fail to retrieve data from NET48 endpoint: " + ex.Message;
+            }
+            catch (Exception ex)
+            {
+                errorMessage = "Unexpected error occured: " + ex.Message;
+            }
+            
+            return View("Error", model: errorMessage);
+        }
+
+        public async Task<ActionResult> GetNet8Data()
+        {
+            var authResult = await HttpContext.GetOwinContext().Authentication.AuthenticateAsync("cookies");
+            var errorMessage = "No Access Token found. Please sign in again";
+            
+            var props = authResult.Properties.Dictionary;
+
+            try
+            {
+                if (props.TryGetValue("access_token", out var accessToken))
+                {
+                    if (TokenIsExpired(authResult.Properties))
+                    {
+                        var tokenResponse = await RefreshToken(authResult.Properties, authResult.Identity);
+                        accessToken = tokenResponse.AccessToken;
+                    }
+
+                    if (accessToken is null)
+                    {
+                        throw new Exception("Access token not found please sign in again.");
+                    }
+
+                    var http = new HttpClient();
+                    http.SetBearerToken(accessToken);
+                    var response = await http.GetStringAsync(Urls.ApiCore + "/company");
+
+                    return View("Net8", model: response);
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                errorMessage = "Fail to retrieve data from NET8 endpoint: " + ex.Message;
             }
             catch (Exception ex)
             {
