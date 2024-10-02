@@ -9,15 +9,15 @@ namespace MvcApp.Controllers
     {
         public async Task<ActionResult> Index()
         {
-            var result = await HttpContext.GetOwinContext().Authentication.AuthenticateAsync("cookies");
+            var authResult = await HttpContext.GetOwinContext().Authentication.AuthenticateAsync("cookies");
             var response = new HomeIndexResponse
             {
                 IsAuthenticated = false,
             };
 
-            if (result != null)
+            if (authResult != null)
             {
-                response.IsAuthenticated = result.Identity.IsAuthenticated;
+                response.IsAuthenticated = authResult.Identity.IsAuthenticated;
             }
             
             return View(response);

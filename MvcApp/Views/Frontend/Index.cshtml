@@ -1,0 +1,23 @@
+﻿@model MvcApp.RequestResponse.FrontendResponse
+
+@{
+    ViewBag.Title = "Vue Page";
+}
+
+<head>
+    @Html.Raw(Model.Assets.HeadContent)
+</head>
+<body>
+    <h1>Vue Land</h1><p class="lead">User Authentication Status</p>
+
+    @if (Model.IsAuthenticated)
+    {
+    <h2>LOGGED IN</h2>
+    <p>You may @Html.ActionLink("log out", "Logout", "Home")</p>
+    }
+    else
+    {
+    <h2>NOT AUTHENTICATED</h2>
+    }
+    @Html.Raw(Model.Assets.BodyContent)
+</body>

@@ -43,6 +43,9 @@
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
+        <Reference Include="HtmlAgilityPack, Version=1.11.67.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+          <HintPath>..\packages\HtmlAgilityPack.1.11.67\lib\Net45\HtmlAgilityPack.dll</HintPath>
+        </Reference>
         <Reference Include="IdentityModel, Version=6.2.0.0, Culture=neutral, PublicKeyToken=e7877f4675df049f, processorArchitecture=MSIL">
           <HintPath>..\packages\IdentityModel.6.2.0\lib\net472\IdentityModel.dll</HintPath>
         </Reference>
@@ -193,22 +196,30 @@
         <Compile Include="App_Start\FilterConfig.cs" />
         <Compile Include="App_Start\RouteConfig.cs" />
         <Compile Include="Constants.cs" />
-        <Compile Include="Controllers\DataFrameworkController.cs" />
+        <Compile Include="Controllers\DataController.cs" />
         <Compile Include="Controllers\HomeController.cs" />
+        <Compile Include="Controllers\FrontendController.cs" />
         <Compile Include="Global.asax.cs">
             <DependentUpon>Global.asax</DependentUpon>
         </Compile>
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="RequestResponse\HomeIndexResponse.cs" />
+        <Compile Include="RequestResponse\VueSpaResponse.cs" />
         <Compile Include="Startup.cs" />
     </ItemGroup>
     <ItemGroup>
+        <Content Include="assets\AboutView-C6Dx7pxG.css" />
+        <Content Include="assets\AboutView-D7D75uLA.js" />
+        <Content Include="assets\index-D6pr4OYR.css" />
+        <Content Include="assets\index-DUh3Z7lw.js" />
         <Content Include="Content\bootstrap-theme.css" />
         <Content Include="Content\bootstrap-theme.min.css" />
         <Content Include="Content\bootstrap.css" />
         <Content Include="Content\bootstrap.min.css" />
         <Content Include="favicon.ico" />
         <Content Include="fonts\glyphicons-halflings-regular.svg" />
+        <Content Include="front-end\dist\favicon.ico" />
+        <Content Include="front-end\dist\index.html" />
         <Content Include="Global.asax" />
         <Content Include="Content\Site.css" />
         <Content Include="Scripts\bootstrap.js" />
@@ -226,6 +237,7 @@
         <Content Include="Scripts\modernizr-2.8.3.js" />
         <Content Include="Views\Data\Net48.cshtml" />
         <Content Include="Views\Data\Net8.cshtml" />
+        <Content Include="Views\Frontend\Index.cshtml" />
         <Content Include="Web.config" />
         <Content Include="Web.Debug.config">
             <DependentUpon>Web.config</DependentUpon>

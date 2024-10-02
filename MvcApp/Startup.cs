@@ -34,7 +34,7 @@ namespace MvcApp
                 SignInAsAuthenticationType = "cookies",
 
                 Authority = Urls.IdentityServer,
-
+                
                 ClientId = "web",
                 ClientSecret = "secret",
 
