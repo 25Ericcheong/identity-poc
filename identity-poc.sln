@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-#
+# 
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcApp", "MvcApp\MvcApp.csproj", "{08FE4793-970A-405F-8026-63359E76441C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer", "IdentityServer\IdentityServer.csproj", "{682B02EA-0245-487B-9494-27673ECAF4C6}"
@@ -8,6 +8,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrameworkApi", "FrameworkApi\FrameworkApi.csproj", "{32698F89-67F3-43A4-9A6A-ECBED1E05ACE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreApi", "CoreApi\CoreApi.csproj", "{CCA27A02-D807-4902-877B-46F3889CBC57}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BffReverseProxy", "BffReverseProxy\BffReverseProxy.csproj", "{0625ADE7-720C-45CF-B55E-C10827AAC20F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,5 +35,9 @@ Global
 		{CCA27A02-D807-4902-877B-46F3889CBC57}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCA27A02-D807-4902-877B-46F3889CBC57}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CCA27A02-D807-4902-877B-46F3889CBC57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0625ADE7-720C-45CF-B55E-C10827AAC20F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0625ADE7-720C-45CF-B55E-C10827AAC20F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0625ADE7-720C-45CF-B55E-C10827AAC20F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0625ADE7-720C-45CF-B55E-C10827AAC20F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
