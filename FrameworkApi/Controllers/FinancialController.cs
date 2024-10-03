@@ -6,10 +6,10 @@ namespace FrameworkApi.Controllers
     public class FinancialController : ApiController
     {
         [HttpGet]
-        [RequireScope(AllowedScopes.FrameworkApiScope)]
+        [RequireScope(Constants.AllowedScopes.FrameworkApiScope)]
         public string Index()
         {
-            return $"FINANCIAL DATA COMING FROM NET48 API ({AllowedScopes.FrameworkApiScope} Protected)";
+            return $"FINANCIAL DATA COMING FROM NET48 API ({Constants.AllowedScopes.FrameworkApiScope} Protected)";
         }
     }
 }

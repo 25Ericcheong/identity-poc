@@ -16,7 +16,7 @@ namespace FrameworkApi
         protected override bool IsAuthorized(HttpActionContext actionContext)
         {
             var user = actionContext.Request.GetOwinContext().Authentication.User;
-            return user.Claims.Any(c => c.Type == ClaimTypes.Scope && c.Value == _scope);
+            return user.Claims.Any(c => c.Type == Constants.ClaimTypes.Scope && c.Value == _scope);
         }
 
     }

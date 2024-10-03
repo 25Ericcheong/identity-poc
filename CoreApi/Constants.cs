@@ -1,6 +1,6 @@
 namespace CoreApi;
 
-public abstract class Constants
+public static class Constants
 {
     public static class Urls
     {

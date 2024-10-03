@@ -18,7 +18,7 @@ namespace FrameworkApi
 {
     public class Startup
     {
-        private static readonly DiscoveryCache DiscoveryCache = new(Urls.IdentityServer);
+        private static readonly DiscoveryCache DiscoveryCache = new(Constants.Urls.IdentityServer);
         
         public void Configuration(IAppBuilder app)
         {
@@ -30,8 +30,8 @@ namespace FrameworkApi
                 AuthenticationMode = AuthenticationMode.Active,
                 TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidIssuer = Urls.IdentityServer,
-                    ValidAudience = Urls.IdentityServer + "/resources",
+                    ValidIssuer = Constants.Urls.IdentityServer,
+                    ValidAudience = Constants.Urls.IdentityServer + "/resources",
                     IssuerSigningKeyResolver = LoadKeys,
                     NameClaimType = "name",
                     RoleClaimType = "role"

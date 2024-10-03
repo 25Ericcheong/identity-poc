@@ -1,6 +1,6 @@
 namespace IdentityServer;
 
-public class Constants
+public static class Constants
 {
     public static class Urls
     {
