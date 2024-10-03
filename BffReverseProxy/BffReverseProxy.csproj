@@ -13,4 +13,8 @@
     <PackageReference Include="Yarp.ReverseProxy" Version="2.2.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\index.html" />
+  </ItemGroup>
+
 </Project>

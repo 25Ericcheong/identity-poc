@@ -28,11 +28,11 @@ public static class Config
 
                 AllowedGrantTypes = GrantTypes.Code,
             
-                // where to redirect to after login
-                RedirectUris = { Constants.Urls.Mvc },
+                // allowed URIs to send authorization or authentication tokens to
+                RedirectUris = { Constants.Urls.Mvc, Constants.Urls.BffSignInOidc },
 
                 // where to redirect to after logout
-                PostLogoutRedirectUris = { Constants.Urls.Mvc },
+                PostLogoutRedirectUris = { Constants.Urls.Mvc, Constants.Urls.BffSignOutOidc },
 
                 AllowOfflineAccess = true,
                 AllowedScopes =

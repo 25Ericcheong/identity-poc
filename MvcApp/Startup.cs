@@ -22,7 +22,7 @@ namespace MvcApp
             {
                 AuthenticationType = "cookies",
                 ExpireTimeSpan = TimeSpan.FromMinutes(10),
-                SlidingExpiration = true
+                SlidingExpiration = true,
             });
             
             JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
