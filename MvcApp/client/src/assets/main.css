@@ -1,1 +1,9 @@
 @import './reset.css';
+
+.page {
+  display: flex;
+  justify-content: center;
+  border: 2px solid;
+  margin: 5px;
+  padding: 10px;
+}

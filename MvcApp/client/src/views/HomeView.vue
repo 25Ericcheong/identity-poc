@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <main>
-    <h1>Home page - checks for authentication. Must be simple UI</h1>
-  </main>
+  <div class="page">
+    <h1>Home/Auth page - checks for authentication. Must be simple UI</h1>
+  </div>
 </template>

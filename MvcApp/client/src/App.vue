@@ -7,7 +7,7 @@ import { RouterLink, RouterView } from 'vue-router'
     <div class="wrapper">
       <nav>
         <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+        <RouterLink to="/financial">Financial</RouterLink>
       </nav>
     </div>
   </header>
@@ -15,4 +15,15 @@ import { RouterLink, RouterView } from 'vue-router'
   <RouterView />
 </template>
 
-<style scoped></style>
+<style scoped>
+.wrapper {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+
+  a {
+    margin: 5px;
+    font-size: large;
+  }
+}
+</style>
