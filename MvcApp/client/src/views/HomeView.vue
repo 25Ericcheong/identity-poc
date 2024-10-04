@@ -4,7 +4,7 @@ import { ref } from 'vue'
 const isAuthenticated = ref(false)
 
 function login() {
-  window.location.assign('https://localhost:7095/bff/login?returnUrl=http://localhost:5173/')
+  window.location.assign('https://localhost:7095/bff/login?returnUrl=https://localhost:5173/')
 }
 </script>
 
