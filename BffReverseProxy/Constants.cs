@@ -7,6 +7,8 @@ public static class Constants
         public const string IdentityServer = "https://localhost:5001";
 
         public const string Mvc = "https://localhost:44330";
+        
+        public const string VueSpaFrontend = "https://localhost:5173";
     }
 
     public static class AllowedScopes

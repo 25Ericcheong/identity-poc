@@ -37,6 +37,17 @@ builder.Services.AddReverseProxy()
         });
     }).AddBffExtensions();
 
+builder.Services.AddCors(corOptions =>
+{
+    corOptions.AddDefaultPolicy(policy =>
+    {
+        policy
+            .WithOrigins(Constants.Urls.VueSpaFrontend)
+            .WithHeaders("x-csrf", "content-type")
+            .AllowCredentials();
+    });
+});
+
 builder.Services
     .AddAuthentication(options =>
     {
@@ -105,6 +116,7 @@ app.UseExceptionHandler("/?error");
 
 app.UseHttpsRedirection();
 app.UseRouting();
+app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
 
