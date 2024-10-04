@@ -3,8 +3,13 @@ import { ref } from 'vue'
 
 const isAuthenticated = ref(false)
 
+let RETURN_URL = import.meta.env.VITE_SPA_URL
+if (import.meta.env.MODE === 'production') {
+  RETURN_URL = import.meta.env.VITE_MVC_APP_URL
+}
+
 function login() {
-  window.location.assign('https://localhost:7095/bff/login?returnUrl=https://localhost:5173/')
+  window.location.assign(`https://localhost:7095/bff/login?returnUrl=${RETURN_URL}`)
 }
 </script>
 

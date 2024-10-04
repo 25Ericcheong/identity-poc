@@ -208,10 +208,10 @@
         <Compile Include="Startup.cs" />
     </ItemGroup>
     <ItemGroup>
-        <Content Include="assets\AboutView-C6Dx7pxG.css" />
-        <Content Include="assets\AboutView-D7D75uLA.js" />
-        <Content Include="assets\index-D6pr4OYR.css" />
-        <Content Include="assets\index-DUh3Z7lw.js" />
+        <Content Include="assets\FinancialView-CX4PtdDi.js" />
+        <Content Include="assets\FinancialView-D-pnktGt.css" />
+        <Content Include="assets\index-ClJ6DYKh.css" />
+        <Content Include="assets\index-QzkiRr67.js" />
         <Content Include="Content\bootstrap-theme.css" />
         <Content Include="Content\bootstrap-theme.min.css" />
         <Content Include="Content\bootstrap.css" />
