@@ -10,7 +10,11 @@ using Constants = BffReverseProxy.Constants;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddBff();
+builder.Services.AddBff(options =>
+{
+    // this is by default but want to be explicit
+    options.ManagementBasePath = "/bff";
+});
 builder.Services.AddTransient<IReturnUrlValidator, ReturnUrlValidator>();
 
 var reverseProxyConfig = builder.Configuration.GetSection("ReverseProxy") ?? throw new ArgumentException("ReverseProxy configuration is missing. Check your appsettings.json file!");
