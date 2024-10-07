@@ -59,7 +59,7 @@ builder.Services
     {
         // options.Cookie.Name = "bff_cookies";
         options.Cookie.SameSite = SameSiteMode.Strict;
-        options.Cookie.HttpOnly = false; // prevent client side from acquiring claims I suppose, to be discussed
+        options.Cookie.HttpOnly = true; // prevent client side from acquiring claims I suppose, to be discussed
         options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
     })
     .AddOpenIdConnect("oidc", options =>
