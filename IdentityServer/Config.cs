@@ -33,8 +33,10 @@ public static class Config
 
                 // where to redirect to after logout
                 PostLogoutRedirectUris = { Constants.Urls.Mvc, Constants.Urls.BffSignOutOidc },
-
-                AllowOfflineAccess = true,
+                
+                // create and send refresh token to be used by clients when access token expires without the need to re-login
+                AllowOfflineAccess = false,
+                
                 AllowedScopes =
                 {
                     IdentityServerConstants.StandardScopes.OpenId,

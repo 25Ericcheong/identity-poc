@@ -19,7 +19,7 @@ internal static class HostingExtensions
                 // https://docs.duendesoftware.com/identityserver/v6/fundamentals/resources/api_scopes#authorization-based-on-scopes
                 options.EmitStaticAudienceClaim = true;
                 
-                options.Authentication.CookieLifetime = TimeSpan.FromHours(1);
+                options.Authentication.CookieLifetime = TimeSpan.FromSeconds(30);
                 
                 // user will have to re-login regardless if they were actively using the application
                 options.Authentication.CookieSlidingExpiration = false;

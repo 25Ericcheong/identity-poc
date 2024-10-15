@@ -19,27 +19,13 @@ builder.Services.AddTransient<IReturnUrlValidator, ReturnUrlValidator>();
 
 var reverseProxyConfig = builder.Configuration.GetSection("ReverseProxy") ?? throw new ArgumentException("ReverseProxy configuration is missing. Check your appsettings.json file!");
 
-// transforms incoming request to add access token as bearer token to forward them to allowed apis listed in configurations
+// proxies requests based on routing rules
 builder.Services.AddReverseProxy()
+    .AddTransforms<AccessTokenTransformProvider>()
     .LoadFromConfig(reverseProxyConfig)
-    .AddTransforms(transformBuilder =>
-    {
-        transformBuilder.AddRequestTransform(async transformContext =>
-        {
-            // looks at current http context and looks at authentication's properties for a key "access_token"
-            // either access token doesn't exist or is invalid
-            // if it is invalid - refresh token will be used to recreate access token
-            // possibly a better alternative via Duende: https://docs.duendesoftware.com/identityserver/v7/quickstarts/3a_token_management/#:~:text=An%20object%20called%20tokenInfo%20containing%20all%20stored%20tokens,automatically%20refreshed%20using%20the%20refresh%20token%20if%20needed.
-            // but would like to be more aware of how/where tokens are being created
-            var accessToken = await transformContext.HttpContext.GetUserAccessTokenAsync();
-
-            if (accessToken.AccessToken != null)
-            {
-                transformContext.ProxyRequest.Headers.Authorization =
-                    new AuthenticationHeaderValue("Bearer", accessToken.AccessToken);
-            }
-        });
-    }).AddBffExtensions();
+    
+    // transforms incoming request to add access token as bearer token to forward them to allowed apis listed in configurations
+    .AddBffExtensions();
 
 builder.Services.AddCors(corOptions =>
 {
@@ -63,7 +49,7 @@ builder.Services
     {
         // options.Cookie.Name = "bff_cookies";
         options.Cookie.SameSite = SameSiteMode.Strict;
-        options.Cookie.HttpOnly = true; // prevent client side from acquiring claims I suppose, to be discussed
+        options.Cookie.HttpOnly = true;
         options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
     })
     .AddOpenIdConnect("oidc", options =>
@@ -79,6 +65,10 @@ builder.Services
         options.GetClaimsFromUserInfoEndpoint = true;
         options.MapInboundClaims = false;
         
+        // attaches refresh token to auth properties to be used if needed
+        options.SaveTokens = true;
+        options.UsePkce = true;
+        
         options.Scope.Clear();
         // required to hit identity server; if needed
         options.Scope.Add("openid");
@@ -86,10 +76,7 @@ builder.Services
         
         // required to hit core api endpoints
         options.Scope.Add("CoreApiScope");
-        
-        // attaches refresh token to auth properties to be used if needed
-        options.SaveTokens = true;
-        options.UsePkce = true;
+
 
         options.TokenValidationParameters = new()
         {
@@ -102,7 +89,9 @@ builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("RequireAuthenticatedUserPolicy", policy =>
     {
-        policy.RequireAuthenticatedUser();
+        policy
+            .RequireAuthenticatedUser()
+            .Build();
     });
 });
 
@@ -122,18 +111,23 @@ app.UseHttpsRedirection();
 app.UseRouting();
 app.UseCors();
 app.UseAuthentication();
-app.UseAuthorization();
 
+// order matters - after routing before authorization
 // adds antiforgery protection for local APIs
 app.UseBff();
 
-app.MapReverseProxy(proxyApp =>
-{
-    proxyApp.UseAntiforgeryCheck();
-});
+app.UseAuthorization();
+
+// app.MapReverseProxy(proxyApp =>
+// {
+//     proxyApp.UseAntiforgeryCheck();
+// });
 
 // Enable BFF login, logout and userinfo endpoints
 app.MapBffManagementEndpoints();
+
+// adds YARP with anti-forgery protection (looks for CRSF token)
+app.MapBffReverseProxy();
 
 app.MapFallbackToFile("index.html");
 
