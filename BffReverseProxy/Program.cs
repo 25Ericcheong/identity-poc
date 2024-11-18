@@ -5,6 +5,8 @@ using Duende.Bff.Yarp;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 using Yarp.ReverseProxy.Transforms;
 using Constants = BffReverseProxy.Constants;
 
@@ -94,6 +96,15 @@ builder.Services.AddAuthorization(options =>
             .Build();
     });
 });
+
+builder.Services.AddOpenTelemetry()
+    .WithTracing(b =>
+    {
+        b.SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(builder.Environment.ApplicationName))
+            .AddAspNetCoreInstrumentation()
+            .AddHttpClientInstrumentation()
+            .AddOtlpExporter(opts => { opts.Endpoint = new Uri("http://localhost:4317"); });
+    });
 
 var app = builder.Build();
 
