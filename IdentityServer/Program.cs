@@ -1,4 +1,6 @@
 ﻿using IdentityServer;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration()
@@ -16,6 +18,14 @@ try
         .Enrich.FromLogContext()
         .ReadFrom.Configuration(ctx.Configuration));
 
+    builder.Services.AddOpenTelemetry()
+        .WithTracing(b =>
+        {
+            b.SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(builder.Environment.ApplicationName))
+                .AddAspNetCoreInstrumentation()
+                .AddOtlpExporter(opts => { opts.Endpoint = new Uri("http://localhost:4317"); });
+        });
+    
     var app = builder
         .ConfigureServices()
         .ConfigurePipeline();
