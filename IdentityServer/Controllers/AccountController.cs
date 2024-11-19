@@ -14,7 +14,7 @@ namespace IdentityServer.Controllers;
 public class AccountController : Controller
 {
     /// <summary>
-    /// This is there users are redirected to for login and authentication (from external applications) 
+    /// This is where users are redirected to for login and authentication (externally, from applications) 
     /// </summary>
     /// <param name="request">Request from user's application to login that has returnUrl query parameter</param>
     /// <returns></returns>
@@ -114,6 +114,8 @@ public class AccountController : Controller
             ViewBag.LogoutId = request.LogoutId;
         };
         
+        // https://docs.duendesoftware.com/identityserver/v6/ui/logout/session_cleanup/
+        // typical to prompt user to logout if not attacker could hotlink to logout page directly 
         var showLogoutPrompt = true;
         if (User.Identity?.IsAuthenticated != true)
         {
@@ -127,7 +129,7 @@ public class AccountController : Controller
                 showLogoutPrompt = false;
             }
         }
-
+        
         if (showLogoutPrompt == false)
         {
             return await Logout(new LogoutRequest
@@ -142,7 +144,7 @@ public class AccountController : Controller
     [HttpPost]
     public async Task<IActionResult> Logout(LogoutRequest request)
     {
-        if (User.Identity?.IsAuthenticated == true)
+        if (User.Identity?.IsAuthenticated == true) 
         {
             // if there's no current logout context, we need to create one
             // this captures necessary info from the current logged in user
@@ -187,6 +189,13 @@ public class AccountController : Controller
         // get context information (client name, post logout redirect URI and iframe for federated signout)
         var logout = await _interactionService.GetLogoutContextAsync(request.LogoutId);
 
+        // https://docs.duendesoftware.com/identityserver/v6/ui/logout/client_redirect/
+        // logout page should not directly redirect user back to client since this may skip front-channel notification (would only be the case if we have multiple applications tied to a single client)
+        // if (logout.PostLogoutRedirectUri is not null)
+        // {
+        //     return Redirect(logout.PostLogoutRedirectUri);
+        // }
+        
         LoggedOutResponse loggedOutResponse = new LoggedOutResponse() {
             PostLogoutRedirectUri = logout.PostLogoutRedirectUri,
             AutomaticRedirectAfterLogout = false, // can be modified if need be to streamline process
