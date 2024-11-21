@@ -5,7 +5,8 @@ Console.WriteLine("Console started");
 var client = new HttpClient();
 
 // Retrieve meta data of identity server
-var disco = await client.GetDiscoveryDocumentAsync("https://localhost:5002");
+var identityServerAddress = "https://localhost:5002";
+var disco = await client.GetDiscoveryDocumentAsync(identityServerAddress);
 if (disco.IsError)
 {
     Console.WriteLine(disco.Error);
