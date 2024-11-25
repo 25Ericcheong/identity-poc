@@ -21,6 +21,7 @@ try
     builder.Services.AddOpenTelemetry()
         .WithTracing(b =>
         {
+            // add jaeger for http tracing across multiple services
             b.SetResourceBuilder(ResourceBuilder.CreateDefault().AddService(builder.Environment.ApplicationName))
                 .AddAspNetCoreInstrumentation()
                 .AddHttpClientInstrumentation()
@@ -35,7 +36,8 @@ try
     
     app.Run();
 }
-catch (Exception ex)
+// https://docs.duendesoftware.com/identityserver/v7/quickstarts/4_ef/#handle-expected-exception
+catch (Exception ex) when (ex.GetType().Name is not "StopTheHostException")
 {
     Log.Fatal(ex, "Unhandled exception");
 }
