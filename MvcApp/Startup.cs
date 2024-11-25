@@ -21,8 +21,8 @@ namespace MvcApp
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = "cookies",
-                ExpireTimeSpan = TimeSpan.FromMinutes(10),
-                SlidingExpiration = true,
+                ExpireTimeSpan = TimeSpan.FromMinutes(1),
+                SlidingExpiration = false,
             });
             
             JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
@@ -35,14 +35,14 @@ namespace MvcApp
 
                 Authority = Urls.IdentityServer,
                 
-                ClientId = "web",
-                ClientSecret = "secret",
+                ClientId = "mvc-framework-app",
+                ClientSecret = "mvc-framework-app-secret",
 
                 RedirectUri = Urls.ThisMvc,
                 PostLogoutRedirectUri = Urls.ThisMvc,
 
                 ResponseType = "code",
-                Scope = $"openid profile {AllowedScopes.CoreApiScope} {AllowedScopes.FrameworkApiScope}",
+                Scope = $"openid {AllowedScopes.FrameworkApiScope}",
                 
                 UseTokenLifetime = false,
                 SaveTokens = true,

@@ -21,8 +21,8 @@ public static class Config
 
     public static IEnumerable<Client> Clients =>
         new List<Client> 
-            { new Client
-            {
+            { 
+                new() {
                 ClientId = "web",
                 ClientSecrets = { new Secret("secret".Sha256()) },
 
@@ -41,8 +41,27 @@ public static class Config
                 {
                     IdentityServerConstants.StandardScopes.OpenId,
                     IdentityServerConstants.StandardScopes.Profile,
-                    Constants.AllowedScopes.CoreApiScope,
                     Constants.AllowedScopes.FrameworkApiScope,
-                }
-            } };
+                } },
+                new() {
+                    ClientId = "mvc-framework-app",
+                    ClientSecrets = { new Secret("mvc-framework-app-secret".Sha256()) },
+
+                    AllowedGrantTypes = GrantTypes.Code,
+            
+                    // allowed URIs to send authorization or authentication tokens to
+                    RedirectUris = { Constants.Urls.Mvc },
+
+                    // where to redirect to after logout
+                    PostLogoutRedirectUris = { Constants.Urls.Mvc },
+                
+                    // create and send refresh token to be used by clients when access token expires without the need to re-login
+                    AllowOfflineAccess = false,
+                
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        Constants.AllowedScopes.FrameworkApiScope,
+                    } }
+            };
 }

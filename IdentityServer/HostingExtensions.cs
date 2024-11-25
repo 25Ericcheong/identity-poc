@@ -12,6 +12,9 @@ internal static class HostingExtensions
     {
         // https://learn.microsoft.com/en-us/dotnet/api/microsoft.data.sqlclient.sqlconnection.connectionstring?view=sqlclient-dotnet-standard-5.2#remarks
         const string connectionString = "Server=.;Database=Fathom-Identity; Integrated Security=True; ApplicationIntent=ReadWrite; Encrypt=False";
+        
+        // https://docs.duendesoftware.com/identityserver/v7/quickstarts/4_ef/#configuring-the-stores
+        // https://docs.duendesoftware.com/identityserver/v7/data/ef/#configuration-store-support
         var migrationsAssembly = typeof(Program).GetTypeInfo().Assembly.GetName().Name;
         
         // uncomment if you want to add a UI
@@ -23,7 +26,9 @@ internal static class HostingExtensions
                 options.UserInteraction.LogoutUrl = "/Account/Logout";
                 options.UserInteraction.ErrorUrl = "/Home/Error";
 
-                // https://docs.duendesoftware.com/identityserver/v6/fundamentals/resources/api_scopes#authorization-based-on-scopes
+                // https://docs.duendesoftware.com/identityserver/v7/fundamentals/resources/api_scopes/#adding-user-claims
+                // this ensures that we always emit aud claim in the issuer_name/resources format. With issuer name being the hostname and /resources being an endpoint that the identity server exposes by default
+                // if we only use scope; Duende does not emit aud claim.
                 options.EmitStaticAudienceClaim = true;
 
                 options.Authentication.CookieLifetime = TimeSpan.FromSeconds(30);
