@@ -1,4 +1,5 @@
 using System.Reflection;
+using Duende.IdentityServer.EntityFramework.DbContexts;
 using IdentityServer.TestData;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -9,7 +10,8 @@ internal static class HostingExtensions
 {
     public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
     {
-        const string connectionString = "Server=localhost;Database=Fathom-Identity;Username=sa;Password=sa;";
+        // https://learn.microsoft.com/en-us/dotnet/api/microsoft.data.sqlclient.sqlconnection.connectionstring?view=sqlclient-dotnet-standard-5.2#remarks
+        const string connectionString = "Server=.;Database=Fathom-Identity; Integrated Security=True; ApplicationIntent=ReadWrite; Encrypt=False";
         var migrationsAssembly = typeof(Program).GetTypeInfo().Assembly.GetName().Name;
         
         // uncomment if you want to add a UI
@@ -33,6 +35,8 @@ internal static class HostingExtensions
             .AddInMemoryApiScopes(Config.ApiScopes)
             .AddInMemoryClients(Config.Clients)
             .AddTestUsers(TestUsers.Users)
+            
+            // https://github.com/DuendeSoftware/IdentityServer/blob/main/src/EntityFramework/IdentityServerEntityFrameworkBuilderExtensions.cs#L99
             .AddOperationalStore(options =>
             {
                 options.ConfigureDbContext = dbContextOptionsBuilder =>
@@ -41,10 +45,18 @@ internal static class HostingExtensions
                 // enables automatic token clean up
                 // TODO: To test
                 options.EnableTokenCleanup = true;
+                
+                // 30 seconds to clean token up (for expired tokens)
                 options.TokenCleanupInterval = 30;
             });
 
         return builder.Build();
+    }
+
+    private static void InitializeDatabase(IApplicationBuilder app)
+    {
+        using var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>()!.CreateScope();
+        serviceScope.ServiceProvider.GetRequiredService<PersistedGrantDbContext>().Database.Migrate();
     }
     
     public static WebApplication ConfigurePipeline(this WebApplication app)
@@ -56,6 +68,9 @@ internal static class HostingExtensions
             app.UseDeveloperExceptionPage();
         }
 
+        // database migration is executed upon running app
+        InitializeDatabase(app);
+        
         // uncomment if you want to add a UI
         //app.UseStaticFiles();
         //app.UseRouting();
